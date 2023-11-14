@@ -1,0 +1,16 @@
+{
+  "CONTENT": {
+    "RECEIVE_FROM": "Amount: ${amount}",
+    "DEPOSIT_SUCCESS": "Dear customer, your deposit of ${amount} from {nameBankAccount} has been successfully processed.",
+    "DEPOSIT_FAILURE": "Dear Customer, your deposit of ${amount} from {paymentMethod} has been failure",
+    "WITHDRAW_SUCCESS": "Dear customer, your withdrawal of ${amount} from your wallet to your local bank account {nameLocalBank} has been successfully processed",
+    "TRANSFER_SUCCESS": "You have successfully transferred ${amount} to {userNameTo}."
+  },
+  "TITLE": {
+    "RECEIVE_FROM": "Received from {senderName}",
+    "DEPOSIT_SUCCESS": "Deposit successfully",
+    "DEPOSIT_FAILURE": "Deposit failure",
+    "WITHDRAW_SUCCESS": "Withdraw successfully",
+    "TRANSFER_SUCCESS": "Transfer successfully"
+  }
+}

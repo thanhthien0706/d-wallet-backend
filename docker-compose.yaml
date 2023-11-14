@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+    ports:
+      - '3307:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  stripe-cli:
+    image: stripe/stripe-cli
+    container_name: stripe-cli
+    command: 'listen --api-key ${STRIPE_API_KEY} --device-name ${STRIPE_DEVICE_NAME} --forward-to http://localhost:3001/api/webhook/'
+    environment:
+      STRIPE_WEBHOOK_SECRET: sk_test_51MZSydDzfSikLuOraup58wsTYSi51DR1sTOkK0DRNc1O3qB6CCy9Wbs9OMM34F6jQZkrucRPZpU9u64jPzEputNO00dPSs1Rty
+    env_file:
+      - .env
+    network_mode: host
+  api:
+    build: .
+    restart: always
+    depends_on:
+      - mysql
+      - stripe-cli
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_NAME}
+    ports:
+      - '3001:3001'
+    volumes:
+      - /app/node_modules
+      - .:/app
+
+volumes:
+  mysql_data:
